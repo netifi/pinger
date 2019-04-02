@@ -1,0 +1,27 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'com.bmuschko.docker-spring-boot-application'
+}
+
+springBoot {
+    mainClassName = 'com.netifi.pinger.pong.PongApplication'
+}
+
+dependencies {
+    implementation project(':ping-idl')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'io.netifi.proteus:proteus-spring-boot-starter:1.6.0'
+    implementation 'io.netifi.proteus:proteus-discovery-aws'
+    implementation 'io.netifi.proteus:proteus-discovery-consul'
+    implementation 'io.netifi.proteus:proteus-discovery-kubernetes'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+docker {
+    springBootApplication {
+        baseImage = 'adoptopenjdk/openjdk11'
+        ports = [8081]
+        tag = 'netifi/pinger-pong'
+    }
+}
