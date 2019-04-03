@@ -12,10 +12,4 @@ public class PingApplication {
   public static void main(String[] args) {
     SpringApplication.run(PingApplication.class, args);
   }
-
-  @Bean
-  public ProteusConfigurer proteusConfigurer() {
-    return builder ->
-        builder.addressSelector(BrokerAddressSelectors.TCP_ADDRESS);
-  }
 }

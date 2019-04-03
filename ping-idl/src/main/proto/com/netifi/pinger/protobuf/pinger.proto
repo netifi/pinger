@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.netifi.pinger;
+package com.netifi.pinger.pong;
 
 option java_package = "com.netifi.pinger.pong";
 option java_outer_classname = "PingerProto";
