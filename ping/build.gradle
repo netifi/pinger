@@ -21,7 +21,7 @@ dependencies {
 docker {
     springBootApplication {
         baseImage = 'adoptopenjdk/openjdk11'
-        ports = [8080]
+        ports = [8081]
         tag = 'netifi/pinger-ping'
     }
 }
