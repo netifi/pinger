@@ -2,7 +2,7 @@ package com.netifi.pinger.ping;
 
 import com.netifi.pinger.pong.PongRequest;
 import com.netifi.pinger.pong.PongServiceClient;
-import io.netifi.proteus.spring.core.annotation.Group;
+import com.netifi.spring.core.annotation.Group;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.PreDestroy;

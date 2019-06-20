@@ -1,20 +1,5 @@
-dependencies {
-    implementation "io.rsocket.rpc:rsocket-rpc-core"
-    implementation "com.google.protobuf:protobuf-java"
-}
-
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc"
-    }
-    plugins {
-        rsocketRpc {
-            artifact = "io.rsocket.rpc:rsocket-rpc-protobuf"
-        }
-        generateProtoTasks {
-            ofSourceSet('main')*.plugins {
-                rsocketRpc {}
-            }
-        }
+sourceSets {
+    main {
+        resources { srcDir 'src/main/proto' }
     }
 }

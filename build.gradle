@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.0.M1' apply false
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
     id 'com.google.protobuf' version '0.8.8' apply false
     id 'com.bmuschko.docker-spring-boot-application' version '4.6.2' apply false
 }
@@ -7,56 +7,13 @@ plugins {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
-    apply plugin: 'com.google.protobuf'
-    apply plugin: 'io.spring.dependency-management'
 
     group = 'com.netifi.pinger'
-    version = '0.0.1-SNAPSHOT'
+    version = '1.6.4'
     sourceCompatibility = '11'
 
-    dependencyManagement {
-        imports {
-            mavenBom "io.netifi.proteus:proteus-rsocket-bom:1.6.0"
-            mavenBom "io.netifi.proteus:proteus-bom:1.6.0"
-            mavenBom "io.netifi.proteus:proteus-common-dependencies:1.6.0"
-        }
-    }
-
     repositories {
-        maven {
-            url 'https://sonatype.netifiinc.com/repository/jcenter/'
-            credentials {
-                username = "${netifiReadOnlyUsername}"
-                password = "${netifiReadOnlyPassword}"
-            }
-        }
-        maven {
-            url 'https://sonatype.netifiinc.com/repository/maven-central/'
-            credentials {
-                username = "${netifiReadOnlyUsername}"
-                password = "${netifiReadOnlyPassword}"
-            }
-        }
-        maven {
-            url 'https://sonatype.netifiinc.com/repository/spring-snapshot/'
-            credentials {
-                username = "${netifiReadOnlyUsername}"
-                password = "${netifiReadOnlyPassword}"
-            }
-        }
-        maven {
-            url 'https://sonatype.netifiinc.com/repository/spring-milestone/'
-            credentials {
-                username = "${netifiReadOnlyUsername}"
-                password = "${netifiReadOnlyPassword}"
-            }
-        }
-        maven {
-            url 'https://sonatype.netifiinc.com/repository/netifi-oss/'
-            credentials {
-                username = "${netifiReadOnlyUsername}"
-                password = "${netifiReadOnlyPassword}"
-            }
-        }
+        jcenter()
+        mavenCentral()
     }
 }

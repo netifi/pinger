@@ -1,6 +1,42 @@
 plugins {
     id 'org.springframework.boot'
     id 'com.bmuschko.docker-spring-boot-application'
+    id 'com.google.protobuf'
+}
+
+// IDL Generation
+protobuf {
+    generatedFilesBaseDir = "${projectDir}/src/generated"
+
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.6.1'
+    }
+
+    plugins {
+        rsocketRpc {
+            artifact = 'io.rsocket.rpc:rsocket-rpc-protobuf:0.2.18'
+        }
+        generateProtoTasks {
+            ofSourceSet('main')*.plugins {
+                rsocketRpc {}
+            }
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file('src/main/proto')
+        sourceDirs += file('src/generated/main/java')
+        sourceDirs += file('src/generated/main/rsocketRpc')
+
+        generatedSourceDirs += file('src/generated/main/java')
+        generatedSourceDirs += file('src/generated/main/rsocketRpc')
+    }
+}
+
+clean {
+    delete protobuf.generatedFilesBaseDir
 }
 
 springBoot {
@@ -8,12 +44,15 @@ springBoot {
 }
 
 dependencies {
-    implementation project(':ping-idl')
+    implementation platform('com.netifi:netifi-bom:1.6.4')
+    implementation platform('io.projectreactor:reactor-bom:Californium-SR8')
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE')
+    protobuf project(':ping-idl')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'io.netifi.proteus:proteus-spring-boot-starter:1.6.0'
-    implementation 'io.netifi.proteus:proteus-discovery-aws'
-    implementation 'io.netifi.proteus:proteus-discovery-consul'
-    implementation 'io.netifi.proteus:proteus-discovery-kubernetes'
+    implementation 'com.netifi:netifi-spring-boot-starter'
+    implementation 'com.netifi:netifi-discovery-aws'
+    implementation 'com.netifi:netifi-discovery-consul'
+    implementation 'com.netifi:netifi-discovery-kubernetes'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
 }
