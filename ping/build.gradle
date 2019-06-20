@@ -49,8 +49,14 @@ dependencies {
     implementation platform('org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE')
 
     protobuf project(':ping-idl')
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'com.netifi:netifi-spring-boot-starter'
+    implementation('com.netifi:netifi-spring-boot-starter') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    implementation('org.springframework.boot:spring-boot-starter-webflux') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.slf4j:slf4j-api:1.7.26'
     implementation 'com.netifi:netifi-discovery-aws'
     implementation 'com.netifi:netifi-discovery-consul'
     implementation 'com.netifi:netifi-discovery-kubernetes'
