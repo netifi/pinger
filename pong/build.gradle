@@ -60,6 +60,9 @@ dependencies {
 
 configurations {
     all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    all*.resolutionStrategy {
+        force 'org.slf4j:slf4j-api:1.7.26'
+    }
 }
 
 docker {
