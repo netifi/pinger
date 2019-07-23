@@ -24,7 +24,7 @@ public class DefaultPingService {
   private AtomicLong requestCounter = new AtomicLong();
 
   public DefaultPingService(
-      @Group("com.netifi.pinger.pong") PongServiceClient pongServiceClient) {
+      @Group("demo.netifi.pinger.pong") PongServiceClient pongServiceClient) {
     this.pongServiceClient = pongServiceClient;
   }
 
@@ -36,9 +36,11 @@ public class DefaultPingService {
   private void ping(Long l) {
     log.info("sending ping {}", l);
     requestCounter.incrementAndGet();
+    long startTime = System.currentTimeMillis();
     pongServiceClient.sendPong(PongRequest.newBuilder().setMessage(l.toString()).build())
         .subscribe(pongResponse -> {
-          log.info("got response: {}", pongResponse.getMessage());
+          long endTime = System.currentTimeMillis();
+          log.info("got response: {} - took: {}", pongResponse.getMessage(), (endTime - startTime));
         });
   }
 
