@@ -7,5 +7,13 @@ subprojects {
     repositories {
         jcenter()
         mavenCentral()
+
+        maven {
+            url 'https://sonatype.netifiinc.com/repository/netifi-maven-snapshots/'
+            credentials {
+                username = "${netifiReadOnlyUsername}"
+                password = "${netifiReadOnlyPassword}"
+            }
+        }
     }
 }

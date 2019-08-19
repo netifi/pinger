@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package com.netifi.pinger.pong;
+
+option java_package = "com.netifi.pinger.pong";
+option java_outer_classname = "PingerProto";
+option java_multiple_files = true;
+
+service PongService {
+  rpc SendPong (PongRequest) returns (PongResponse) {
+  }
+}
+
+message PongRequest {
+  string message = 1;
+}
+
+message PongResponse {
+  string message = 1;
+}

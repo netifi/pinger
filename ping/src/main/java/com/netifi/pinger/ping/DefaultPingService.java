@@ -24,13 +24,13 @@ public class DefaultPingService {
   private AtomicLong requestCounter = new AtomicLong();
 
   public DefaultPingService(
-      @Group("demo.netifi.pinger.pong") PongServiceClient pongServiceClient) {
+      @Group("sap.pinger.pong") PongServiceClient pongServiceClient) {
     this.pongServiceClient = pongServiceClient;
   }
 
   @EventListener(ApplicationReadyEvent.class)
   public void startPinging() {
-    ping = Flux.interval(Duration.ofSeconds(3)).onBackpressureBuffer().subscribe(this::ping);
+    ping = Flux.interval(Duration.ofMillis(50)).onBackpressureBuffer().subscribe(this::ping);
   }
 
   private void ping(Long l) {

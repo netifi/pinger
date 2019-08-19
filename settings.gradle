@@ -7,4 +7,5 @@ pluginManagement {
 rootProject.name = 'pinger'
 include 'ping-idl'
 include 'ping'
-include 'pong'
+include 'pong-a'
+include 'pong-b'

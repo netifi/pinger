@@ -1,0 +1,74 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'com.bmuschko.docker-spring-boot-application' version '4.10.0'
+    id 'com.google.protobuf' version '0.8.8'
+}
+
+// IDL Generation
+protobuf {
+    generatedFilesBaseDir = "${projectDir}/src/generated"
+
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+
+    plugins {
+        rsocketRpc {
+            artifact = "io.rsocket.rpc:rsocket-rpc-protobuf:${rsocketRpcVersion}"
+        }
+        generateProtoTasks {
+            ofSourceSet('main')*.plugins {
+                rsocketRpc {}
+            }
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file('src/main/proto')
+        sourceDirs += file('src/generated/main/java')
+        sourceDirs += file('src/generated/main/rsocketRpc')
+
+        generatedSourceDirs += file('src/generated/main/java')
+        generatedSourceDirs += file('src/generated/main/rsocketRpc')
+    }
+}
+
+clean {
+    delete protobuf.generatedFilesBaseDir
+}
+
+springBoot {
+    mainClassName = 'com.netifi.pinger.pong.PongApplication'
+}
+
+dependencies {
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootBomVersion}")
+    implementation platform("com.netifi:netifi-bom:${netifiVersion}")
+    implementation platform("io.projectreactor:reactor-bom:${reactorBomVersion}")
+    protobuf project(':ping-idl')
+    implementation 'com.netifi:netifi-spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'com.netifi:netifi-discovery-aws'
+    implementation 'com.netifi:netifi-discovery-consul'
+    implementation 'com.netifi:netifi-discovery-kubernetes'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+configurations {
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    all*.resolutionStrategy {
+        force 'org.slf4j:slf4j-api:1.7.26'
+    }
+}
+
+docker {
+    springBootApplication {
+        baseImage = 'adoptopenjdk/openjdk11'
+        ports = [8081]
+        tag = 'netifi/pinger-pong'
+    }
+}
