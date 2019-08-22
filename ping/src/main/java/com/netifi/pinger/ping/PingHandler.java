@@ -19,6 +19,6 @@ public class PingHandler {
   public Mono<ServerResponse> ping(ServerRequest request) {
     return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
         .body(BodyInserters
-            .fromObject("we have sent " + defaultPingService.getCounter() + " ping requests"));
+            .fromObject(defaultPingService.printReport()));
   }
 }

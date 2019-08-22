@@ -19,6 +19,6 @@ public class PongHandler {
   public Mono<ServerResponse> pong(ServerRequest request) {
     return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
         .body(BodyInserters
-            .fromObject("we have sent " + defaultPongService.getCounter() + " pong requests"));
+            .fromObject(defaultPongService.printReport()));
   }
 }
