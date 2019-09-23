@@ -29,3 +29,5 @@
 .vscode/
 **/generated/
 **/build/
+
+out/

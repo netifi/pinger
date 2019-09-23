@@ -54,6 +54,11 @@ dependencies {
     implementation 'com.netifi:netifi-discovery-aws'
     implementation 'com.netifi:netifi-discovery-consul'
     implementation 'com.netifi:netifi-discovery-kubernetes'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-core'
+    implementation 'io.micrometer:micrometer-registry-influx'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'io.dropwizard.metrics:metrics-core:4.1.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
 }
@@ -68,7 +73,7 @@ configurations {
 docker {
     springBootApplication {
         baseImage = 'adoptopenjdk/openjdk11'
-        ports = [8081]
+        ports = [8080]
         tag = 'netifi/pinger-pong'
     }
 }

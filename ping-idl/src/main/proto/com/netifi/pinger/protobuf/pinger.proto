@@ -13,8 +13,10 @@ service PongService {
 
 message PongRequest {
   string message = 1;
+  string SenderName = 2;
 }
 
 message PongResponse {
   string message = 1;
+  string SenderName = 2;
 }
