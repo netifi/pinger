@@ -6,10 +6,10 @@ See our [helm charts](https://github.com/netifi/netifi-helm-charts) tutorial for
 
 ```bash
 ./gradlew clean build dockerBuildImage
-docker tag netifi/pinger-ping:latest netifi/pinger-ping:1.6.9
-docker tag netifi/pinger-pong:latest netifi/pinger-pong:1.6.9
-docker push netifi/pinger-ping:1.6.9
-docker push netifi/pinger-pong:1.6.9
+docker tag netifi/pinger-ping:latest netifi/pinger-ping:1.6.10
+docker tag netifi/pinger-pong:latest netifi/pinger-pong:1.6.10
+docker push netifi/pinger-ping:1.6.10
+docker push netifi/pinger-pong:1.6.10
 ```
 
 # InfluxData Sandbox
@@ -58,7 +58,7 @@ docker run --rm \
 '-Dnetifi.broker.admin.accessKey=9007199254740991' \
 '-Dnetifi.broker.admin.accessToken=kTBDVtfRBO4tHOnZzSyY5ym2kfY=' \
 " \
-netifi/broker:1.6.9
+netifi/broker:1.6.10
 ```
 
 Note, the keys provided in this tutorial can be changed and generated with the following command:
@@ -66,7 +66,7 @@ Note, the keys provided in this tutorial can be changed and generated with the f
 ```bash
 docker run --rm \
 -e BROKER_SERVER_OPTS="-Dnetifi.broker.generateAccessToken=true" \
-netifi/broker:1.6.9
+netifi/broker:1.6.10
 ```
 
 Start a Pong service:
@@ -74,7 +74,7 @@ Start a Pong service:
 ```bash
 docker run --rm \
 -e SPRING_PROFILES_ACTIVE=docker-mac,influx,prometheus \
--P netifi/pinger-pong:1.6.9
+-P netifi/pinger-pong:1.6.10
 ```
 
 Start a Ping service:
@@ -82,7 +82,7 @@ Start a Ping service:
 ```bash
 docker run --rm \
 -e SPRING_PROFILES_ACTIVE=docker-mac,influx,prometheus \
--P netifi/pinger-ping:1.6.9
+-P netifi/pinger-ping:1.6.10
 ```
 
 ## Enterprise Edition
@@ -101,7 +101,7 @@ docker run --rm \
 '-Dnetifi.broker.tcp.publicAddress=host.docker.internal' \
 '-Dnetifi.broker.cluster.clusterName=pinger-local' \
 " \
-netifi/broker:1.6.9
+netifi/broker:1.6.10
 ```
 
 Start a Pong service:
@@ -111,7 +111,7 @@ docker run --rm \
 -e NETIFI_CLIENT_ACCESS_KEY=<SECRET_KEY> \
 -e NETIFI_CLIENT_ACCESS_TOKEN=<SECRET_TOKEN> \
 -e SPRING_PROFILES_ACTIVE=docker-mac,influx,prometheus \
--P netifi/pinger-pong:1.6.9
+-P netifi/pinger-pong:1.6.10
 ```
 
 Start a Ping service:
@@ -121,5 +121,5 @@ docker run --rm \
 -e NETIFI_CLIENT_ACCESS_KEY=<SECRET_KEY> \
 -e NETIFI_CLIENT_ACCESS_TOKEN=<SECRET_TOKEN> \
 -e SPRING_PROFILES_ACTIVE=docker-mac,influx,prometheus \
--P netifi/pinger-ping:1.6.9
+-P netifi/pinger-ping:1.6.10
 ```
